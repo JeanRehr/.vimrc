@@ -76,9 +76,9 @@ inoremap <CR> <Esc>ox<BS>
 
 " Java noremaps:
 
-nnoremap ;sys iSystem.out.println();<Esc>hi
-nnoremap ;pc ipublic class  {<Enter><Enter>}<Esc>kddk$a<Enter><Esc>k$hi
-nnoremap ;main ipublic static void main (String args[]) {<Enter><Enter>}<Esc>kddk$a<CR>
+inoremap ;sys iSystem.out.println();<Esc>hi
+inoremap ;pc ipublic class  {<Enter><Enter>}<Esc>kddk$a<Enter><Esc>k$hi
+inoremap ;main ipublic static void main (String args[]) {<Enter><Enter>}<Esc>kddk$a<CR>
 
 
 " C-like languages
