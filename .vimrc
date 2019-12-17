@@ -9,6 +9,7 @@ set textwidth=88
 set wrap linebreak nolist
 set autoindent
 set hidden
+set path=**
 colo default
 autocmd BufWritePre * %s/\s\+$//e " Automatically deletes all trailing whitespace on save.
 syntax enable
@@ -17,7 +18,6 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o "
 set autoindent
 set smartindent
 set cindent
-
 
 " vim-plug
 call plug#begin('~/.config/nvim/plugged')
@@ -31,17 +31,22 @@ call plug#begin('~/.config/nvim/plugged')
 	Plug 'vim-ctrlspace/vim-ctrlspace'
 	Plug 'vim-airline/vim-airline'
 	Plug 'vim-airline/vim-airline-themes'
+	" Plug 'LucHermitte/lh-vim-lib'
+	" Plug 'LucHermitte/lh-tags'
+	" Plug 'LucHermitte/lh-dev'
+	" Plug 'LucHermitte/lh-style'
+	" Plug 'LucHermitte/lh-brackets'
+	Plug 'LucHermitte/vim-refactor'
 	" todo Eclim
 call plug#end()
 
 " Nerd tree
-map n :NERDTreeToggle
+map <leader>n :NERDTreeToggle<CR>
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Vim airline
 let g:airline#extensions#tabline#enabled = 1 " tab ext
 let g:airline_theme='deus'
-
 
 " func to change background
 function! ReverseBackground()
@@ -58,8 +63,8 @@ function! ReverseBackground()
 	" echo "now syntax is "&syntax
 endfunction
 command! Invbg call ReverseBackground()
-noremap  :Invbg
-map  :let &background = ( &background == "dark"? "light" : "dark" )
+noremap <F11> :Invbg<CR>
+map <F11> :let &background = ( &background == "dark"? "light" : "dark" )<CR>
 " end func
 
 " Finding Files: Search down into subfolders and provides tab-completion &&
@@ -97,36 +102,36 @@ command! MakeTags !ctags -R .
 " let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 " - :edit a folder to open a file browser
-" - /v/t to open in a h-split/v-split/tab ( = enter)
+" - <CR>/v/t to open in a h-split/v-split/tab (<CR> = enter)
 " - check |netrw-browse-maps| for more mappings
 
 " Snippets: Type something you always type with fewer key strokes.
 
 
 " Basic noremaps:
-nnoremap  a
-inoremap ' ''i
-inoremap " ""i
+nnoremap <Tab> a<Tab><Esc>
+inoremap ' ''<Esc>i
+inoremap " ""<Esc>i
 inoremap "" ""
-inoremap ( ()i
+inoremap ( ()<Esc>i
 inoremap () ()
-inoremap ( ()
-inoremap [ []i
+inoremap (<Space> ()<Space>
+inoremap [ []<Esc>i
 inoremap [] []
-inoremap [ []
+inoremap [<Space> []<Space>
 inoremap [[ [][]
-inoremap { {}i
+inoremap { {}<Esc>i
 inoremap {} {}
-inoremap { {}
-inoremap { {}kddk$o
+inoremap {<Space> {}<Space>
+inoremap {<CR> {<Enter>}<Esc>k$o
 
 " Java maps:
-autocmd FileType java inoremap ;sys System.out.println();hi
-autocmd FileType java inoremap ;set public void set( ) {this. = ;}kk0fta
-autocmd FileType java inoremap ;get public get() {return ; }kk0fca
-autocmd FileType java inoremap ;pc public class % {}kddk$o
-autocmd FileType java inoremap ;p% public %() {}kddk0f.5xa
-autocmd FileType java inoremap ;main public static void main (String args[]) {}kddk$o
+autocmd FileType java inoremap ;sys System.out.println();<Esc>hi
+autocmd FileType java inoremap ;get public get() {<Enter>return ; <Enter>}<Esc>kk0fca<Space>
+autocmd FileType java inoremap ;set public void set( ) {<Enter>this. = ;<Enter>}<Esc>kk0fta
+autocmd FileType java inoremap ;pc public class <C-R>% {<Enter>}<Esc>kf.5x$o
+autocmd FileType java inoremap ;p% public <C-R>%() {<Enter>}<Esc>k0f.5xa
+autocmd FileType java inoremap ;main public static void main (String[] args) {<Enter>}<Esc>k$o
 
 " Shell maps
-autocmd FileType sh inoremap [[ [[]]hi
+autocmd FileType sh inoremap [[ [[]]<Esc>hi
